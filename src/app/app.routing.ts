@@ -22,8 +22,8 @@ export const routes: Routes = [
         loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
       {
-        path: 'new',
-        loadChildren: './pages/new-event/new-event.module#NewEventModule'
+        path: 'events',
+        loadChildren: './pages/events.module#EventsModule'
       }
     ]
   }

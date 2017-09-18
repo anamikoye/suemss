@@ -8,6 +8,13 @@ import { Router } from '@angular/router';
 })
 export class NewEventComponent implements OnInit {
 
+  time = {hour: 13, minute: 30};
+  meridian = true;
+
+  toggleMeridian() {
+      this.meridian = !this.meridian;
+  }
+
   constructor() { }
 
   ngOnInit() {
