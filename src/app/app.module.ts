@@ -17,11 +17,22 @@ import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
 
+// Firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from 'environments/environment';
+
+// Auth
+import { AuthService } from './authentication/auth.service';
+
 // Routing Module
 import { AppRoutingModule } from './app.routing';
 
 // Layouts
 import { FullLayoutComponent } from './layouts/full-layout.component';
+import { RegisterComponent } from './authentication/register/register.component';
+import { LoginComponent } from './authentication/login/login.component';
 
 @NgModule({
   imports: [
@@ -34,6 +45,9 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     ReactiveFormsModule,
     TagInputModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase, 'suemss'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     NgbModule.forRoot(),
   ],
   declarations: [
@@ -42,12 +56,13 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
     NAV_DROPDOWN_DIRECTIVES,
     BreadcrumbsComponent,
     SIDEBAR_TOGGLE_DIRECTIVES,
-    AsideToggleDirective
+    AsideToggleDirective,
+    RegisterComponent,
+    LoginComponent
   ],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy }, AuthService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

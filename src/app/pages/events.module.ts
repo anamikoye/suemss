@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TagInputModule } from 'ngx-chips';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +16,8 @@ import { EventRouting } from './events.routing';
     EventRouting,
     NgbModule,
     TagInputModule,
+    FormsModule,
+    ReactiveFormsModule
     // BrowserAnimationsModule
   ],
   declarations: [
