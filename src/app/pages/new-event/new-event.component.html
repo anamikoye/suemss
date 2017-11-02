@@ -1,80 +1,95 @@
 <div class="animated fadeIn">
-        <div class="row">
-          <div class="col-sm-12  offset-*">
-                <div class="card">
-                        <div class="card-header">
-                          <strong>Event Details</strong>
+   <div class="row">
+      <div class="col-sm-12  offset-*">
+         <div class="card">
+            <div class="card-header">
+               <strong>Event Details</strong>
+            </div>
+            <div class="card-body">
+               <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+                  <div class="form-group">
+                     <label for="title"><b>Event Title</b></label>
+                     <input type="text" class="form-control" id="title" [(ngModel)]="event.title" name="title" placeholder="Short distinct name">
+                  </div>
+                  <div class="form-group">
+                     <label for="vat"><b>Location</b></label>
+                     <input type="text" class="form-control" id="location" [(ngModel)]="event.location" name="location" placeholder="Where it will be held">
+                  </div>
+                  <div class="row">
+                     <div class="form-group col-sm-5">
+                        <label for="date"><b>Date</b></label>
+                        <div class="input-group">
+                           <input class="form-control" placeholder="yyyy-mm-dd" id="date" [(ngModel)]="event.date" name="date" ngbDatepicker #d="ngbDatepicker">
+                           <span class="input-group-addon" (click)="d.toggle()" type="button"><i class="fa fa-calendar"></i></span>
                         </div>
-                        <div class="card-body">
-                          <div class="form-group">
-                            <label for="title"><b>Event Title</b></label>
-                            <input type="text" class="form-control" id="title" placeholder="Short distinct name">
-                          </div>
-                          <div class="form-group">
-                            <label for="vat"><b>Location</b></label>
-                            <input type="text" class="form-control" id="vat" placeholder="Where it will be held">
-                          </div>
-                          <div class="row">
-                            <div class="form-group col-sm-5">
-                              <label for="city"><b>Date</b></label>
-                              <div class="input-group">
-                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
-                                    <span class="input-group-addon" (click)="d.toggle()" type="button"><i class="fa fa-calendar"></i></span>
-                                  </div>
-                            </div>
-                            <div class="form-group col-sm-1"></div>
-                            <div class="form-group col-sm-3">
-                              <label for="postal-code"><b>Starts</b></label>
-                              <ngb-timepicker [spinners]="spinners" [meridian]="meridian"></ngb-timepicker>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                    <label for="postal-code"><b>Ends</b></label>
-                                    <ngb-timepicker [spinners]="spinners" [meridian]="meridian"></ngb-timepicker>
-                                  </div>
-                          </div><!--/.row-->
-                          <div class="form-group">
-                            <label for="desc"><b>Event Description</b></label>
-                            <textarea id="desc" name="desc" rows="6" cols="3" class="form-control" placeholder="Brief description of your event.."></textarea>
-                          </div>
-                          <!-- <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="file-input"><strong>Event Image</strong></label>
-                            <div class="col-md-9">
-                              <input type="file" id="file-input" name="file-input" ngbPopover="We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB" triggers="mouseenter:mouseleave" popoverTitle="Image Specifications">
-                            </div>
-                          </div> -->
-                          <div class="form-group row">
-                            <label class="col-md-2 form-control-label"><strong>Event Type</strong></label>
-                            <div class="col-md-3">
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked> Open
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"> Closed
-                                </label>
-                              </div>
-                            </div>
-                            <label class="col-md-3 form-control-label" for="file-input"><strong>Event Category</strong></label>
-                            <div ngbDropdown class="d-inline-block">
-                              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select Category</button>
-                              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button class="dropdown-item">Information Technology</button>
-                                <button class="dropdown-item">Financial Economics</button>
-                                <button class="dropdown-item">Commerce</button>
-                                <button class="dropdown-item">Law</button>
-                            </div>
-                          </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="title"><b>Event Tags</b></label>
-                            <tag-input [separatorKeys]="[32]" [editable]='true' (onTagEdited)="onTagEdited($event)"></tag-input>
-                          </div>
-
+                     </div>
+                     <div class="form-group col-sm-1"></div>
+                     <div class="form-group col-sm-3">
+                        <label for="start_time"><b>Starts</b></label>
+                        <ngb-timepicker [spinners]="spinners" [meridian]="meridian" id="start_time" [(ngModel)]="event.start_time" name="start_time"></ngb-timepicker>
+                     </div>
+                     <div class="form-group col-sm-3">
+                        <label for="end_time"><b>Ends</b></label>
+                        <ngb-timepicker [spinners]="spinners" [meridian]="meridian" id="end_time" [(ngModel)]="event.end_time" name="end_time"></ngb-timepicker>
+                     </div>
+                  </div>
+                  <!--/.row-->
+                  <div class="form-group">
+                     <label for="desc"><b>Event Description</b></label>
+                     <textarea id="description" [(ngModel)]="event.description" name="description" rows="6" cols="3" class="form-control" placeholder="Brief description of your event.."></textarea>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-2 form-control-label"><strong>Event Type</strong></label>
+                     <div class="col-md-3">
+                        <div class="form-check">
+                           <label class="form-check-label">
+                           <input class="form-check-input" type="radio" [(ngModel)]="event.type" name="type" id="type" value="Open" checked> Open
+                           </label>
                         </div>
-                      </div>
-          </div>
-        </div>
-    </div>
-    
+                        <div class="form-check">
+                           <label class="form-check-label">
+                           <input class="form-check-input" type="radio" [(ngModel)]="event.type" name="type" id="type"  value="Closed"> Closed
+                           </label>
+                        </div>
+                     </div>
+                     <label class="col-md-3 form-control-label" for="category"><strong>Event Category</strong></label>
+                     <div ngbDropdown class="d-inline-block">
+                        <label class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select Category</label>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="categories$ | async; let categories; else loading">
+                           <option class="dropdown-item" *ngFor="let category of categories">{{ category.payload.val().name }}</option>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="title"><b>Event Tags</b></label>
+                     <tag-input [separatorKeys]="[32]" [editable]='true' (onTagEdited)="onTagEdited($event)" [(ngModel)]="event.tags" name="tags"></tag-input>
+                  </div>
+                  <div class="form-group row">
+                     <label class="col-md-3 form-control-label" for="file-input"><strong>Event Image</strong></label>
+                     <div class="col-md-9">
+                        <input type="file" id="file-input" name="file-input" ngbPopover="We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB" triggers="mouseenter:mouseleave" popoverTitle="Image Specifications">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="title"><b><input type="checkbox" id="link" [(ngModel)]="event.link" name="link"> Link to Facebook and Twitter</b></label>
+                  </div>
+                  <div style="text-align:right">
+                     <button type="submit" class="btn btn-success">Submit</button>
+                     <button type="reset" class="btn btn-danger">Clear</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <!-- <pre>{{eventForm.value | json}}</pre> -->
+      </div>
+   </div>
+</div>
+<!-- <div *ngIf="categories$ | async; let categories; else loading">
+   <ul>
+      <li *ngFor="let category of categories">
+         {{ category.payload.val().name }}
+         <b>{{ category.payload.val().id }}</b>
+      </li>
+   </ul>
+   <div *ngIf="categories.length === 0">No results, try clearing filters</div>
+</div> -->
