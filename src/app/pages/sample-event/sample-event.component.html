@@ -1,3 +1,98 @@
-<p>
-  sample-event works!
-</p>
+<div class="animated fadeIn">
+<div class="row">
+  <!--/.col-->
+  <div class="col-sm-8 col-md-4">
+    <div class="card">
+      <div class="card-body p-4">
+        <div class="h1 text-muted text-right mb-4">
+          <i class="fa fa-ticket"></i>
+        </div>
+        <div class="h4 mb-0">0</div>
+        <small class="text-muted text-uppercase font-weight-bold">TICKETS SOLD</small>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+  <div class="col-sm-8 col-md-4">
+    <div class="card">
+      <div class="card-body p-4">
+        <div class="h1 text-muted text-right mb-4">
+          <i class="fa fa-dollar"></i>
+        </div>
+        <div class="h4 mb-0">KES 0</div>
+        <small class="text-muted text-uppercase font-weight-bold">SALES VOLUME</small>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+  <div class="col-sm-8 col-md-4">
+          <!-- <div> -->
+            <div class="card">
+              <div class="card-body p-0 clearfix">
+                <i class="fa fa-clock-o p-4 font-xl mr-3 float-left"></i>                 
+                <div class="h6 mb-0 pt-3 text-uppercase">time to event</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">31 days 10 minutes</div>
+              </div>
+            </div>
+          <!-- </div> -->
+          <!--/.col-->
+          <!-- <div> -->
+            <div class="card">
+              <div class="card-body p-0 clearfix">
+                <i class="fa fa-share-alt p-4 font-xl mr-3 float-left"></i>
+                <div class="h6 text-info mb-0 pt-3">
+                    <button style="margin-left: 15%" class="btn btn-facebook icon" type="button">
+                      <span>Facebook</span>
+                    </button>
+                    <button style="margin-right: 5%; margin-left: 5%" class="btn btn-twitter icon" type="button">
+                      <span>Twitter</span>
+                    </button>
+                    <button style="margin-right: 22%" class="btn btn-google-plus icon" type="button">
+                        <span>Google+</span>
+                      </button>
+                    </div>
+                <!-- <div class="h6 text-info mb-0 pt-3">$1.999,50</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">Income</div> -->
+              </div>
+            </div>
+      <!-- </div> -->
+
+  </div>
+  <!--/. col -->
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-user text-muted"></i> Event Attendees </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Ticket</th>
+                    <th>Ref #</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let category of categories | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <td>{{category}}</td>
+                    <td>2012/01/01</td>
+                    <td>Member</td>
+                    <td>
+                        <span class="badge badge-primary">Primary</span>
+                    </td>
+                    <td></td>
+                  </tr>                 
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+</div>
