@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NewEventComponent } from './new-event/new-event.component';
 import { MyEventComponent } from './my-event/my-event.component';
+import { SampleEventComponent } from './sample-event/sample-event.component';
 
 const routes: Routes = [
     {
@@ -16,7 +17,14 @@ const routes: Routes = [
         component: MyEventComponent,
         data: {
             title: 'Planned Events'
-        }
+        },
+    },
+    {
+        path: 'sample',
+        component: SampleEventComponent,
+        data: {
+            title: 'Planned Events  /  Event 1'
+        },
     }
 ];
 

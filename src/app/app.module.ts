@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { TagInputModule } from 'ngx-chips';
+import { CalendarModule } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -33,6 +35,7 @@ import { AppRoutingModule } from './app.routing';
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
+// import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -49,6 +52,8 @@ import { LoginComponent } from './authentication/login/login.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
+    NgbModalModule.forRoot(),
+    CalendarModule.forRoot(),
   ],
   declarations: [
     AppComponent,
@@ -58,7 +63,8 @@ import { LoginComponent } from './authentication/login/login.component';
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    // DashboardComponent
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy }, AuthService],

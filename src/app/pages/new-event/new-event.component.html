@@ -53,12 +53,16 @@
                         </div>
                      </div>
                      <label class="col-md-3 form-control-label" for="category"><strong>Event Category</strong></label>
-                     <div ngbDropdown class="d-inline-block">
+                     <!-- <div ngbDropdown class="d-inline-block">
                         <label class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select Category</label>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="categories$ | async; let categories; else loading">
                            <option class="dropdown-item" *ngFor="let category of categories">{{ category.payload.val().name }}</option>
                         </div>
-                     </div>
+                     </div> -->
+                     <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" *ngIf="categories$ | async; let categories; else loading">
+                        <option selected>Select Category</option>
+                        <option value="1" *ngFor="let category of categories">{{ category.payload.val().name }}</option>
+                      </select>
                   </div>
                   <div class="form-group">
                      <label for="title"><b>Event Tags</b></label>
