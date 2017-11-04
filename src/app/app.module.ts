@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +18,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -54,6 +55,7 @@ import { LoginComponent } from './authentication/login/login.component';
     NgbModule.forRoot(),
     NgbModalModule.forRoot(),
     CalendarModule.forRoot(),
+    NgxPaginationModule,
   ],
   declarations: [
     AppComponent,
@@ -69,6 +71,9 @@ import { LoginComponent } from './authentication/login/login.component';
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy }, AuthService],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+]
 })
 export class AppModule { }
