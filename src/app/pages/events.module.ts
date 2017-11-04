@@ -8,6 +8,7 @@ import { TagInputModule } from 'ngx-chips';
 
 import { NewEventComponent } from './new-event/new-event.component';
 import { MyEventComponent } from './my-event/my-event.component';
+import { SampleEventComponent } from './sample-event/sample-event.component';
 import { EventRouting } from './events.routing';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EventRouting } from './events.routing';
   ],
   declarations: [
     NewEventComponent,
-    MyEventComponent
+    MyEventComponent,
+    SampleEventComponent
   ]
 })
 export class EventsModule { }
