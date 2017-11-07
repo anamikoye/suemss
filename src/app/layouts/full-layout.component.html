@@ -12,6 +12,16 @@
          href="#">&#9776;</a>
     </li>
   </ul>
+  <ul class="nav navbar-nav ml-auto" style="padding-right: 2%" *ngIf="auth.currentUser">
+      <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
+          <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
+              <span class="d-md-down-none">{{ auth.currentUserDisplayName }}</span>
+            </a>
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+              <a class="dropdown-item button" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+          </div>
+      </li>
+  </ul>
 </header>
 <div class="app-body">
   <div class="sidebar">

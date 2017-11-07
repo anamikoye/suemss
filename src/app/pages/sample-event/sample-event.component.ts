@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SampleEventComponent implements OnInit {
 
+  public filter = '';
   p = 1;
   categories = ['Information Technology', 'Financial Economics', 'Commerce', 'Law', 'Information Technology', 'Financial Economics', 'Commerce', 'Law', 'Information Technology', 'Financial Economics', 'Commerce', 'Law'];
 

@@ -2,7 +2,7 @@
 <div class="row">
   <!--/.col-->
   <div class="col-sm-8 col-md-4">
-    <div class="card">
+    <div class="card card-accent-primary">
       <div class="card-body p-4">
         <div class="h1 text-muted text-right mb-4">
           <i class="fa fa-ticket"></i>
@@ -14,7 +14,7 @@
   </div>
   <!--/.col-->
   <div class="col-sm-8 col-md-4">
-    <div class="card">
+    <div class="card card-accent-primary">
       <div class="card-body p-4">
         <div class="h1 text-muted text-right mb-4">
           <i class="fa fa-dollar"></i>
@@ -27,9 +27,9 @@
   <!--/.col-->
   <div class="col-sm-8 col-md-4">
           <!-- <div> -->
-            <div class="card">
+            <div class="card border-primary">
               <div class="card-body p-0 clearfix">
-                <i class="fa fa-clock-o p-4 font-xl mr-3 float-left"></i>                 
+                <i class="fa fa-hourglass-half p-4 font-xl mr-3 float-left"></i>                 
                 <div class="h6 mb-0 pt-3 text-uppercase">time to event</div>
                 <div class="text-muted text-uppercase font-weight-bold font-xs">31 days 10 minutes</div>
               </div>
@@ -37,7 +37,7 @@
           <!-- </div> -->
           <!--/.col-->
           <!-- <div> -->
-            <div class="card">
+            <div class="card border-primary">
               <div class="card-body p-0 clearfix">
                 <i class="fa fa-share-alt p-4 font-xl mr-3 float-left"></i>
                 <div class="h6 text-info mb-0 pt-3">
@@ -62,12 +62,62 @@
 </div>
 
 <div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-edit text-muted"></i> Event Details 
+        <div class="card-actions">
+            <a class="btn-setting" ngbPopover="Edit Event Details" triggers="mouseenter:mouseleave"><i class="icon-pencil"></i></a>
+        </div>
+      </div>
+      <div class="card-body">
+          <div class="row">
+              <div class="col-6">
+                  <label for="title"><b>Event Title</b></label>
+                  <input type="text" class="form-control rounded" id="title" disabled>
+                  <br/>   
+                  <label for="date"><b>Date</b></label>
+                  <input type="text" class="form-control rounded" id="date" disabled>
+                  <br/>
+                  <label for="desc"><b>Event Description</b></label>
+                  <textarea id="description" rows="6" cols="3" class="form-control rounded" style="overflow:hidden" disabled></textarea>
+
+              </div>
+              <div class="col-6">
+                  <label for="vat"><b>Location</b></label>
+                  <input type="text" class="form-control rounded" id="location" disabled>
+                  <br/>
+                  <div class="row">
+                  <div class="col-6">
+                      <label for="start_time"><b>Start Time</b></label>
+                      <input type="text" class="form-control rounded" id="start_time" disabled>
+                  </div>
+                  <div class="col-6"><label for="end_time"><b>End Time</b></label>
+                    <input type="text" class="form-control rounded" id="end_time" disabled>
+                  </div>
+                </div>
+                <br>
+                <label for="type"><b>Event Type</b></label>
+                <input type="text" class="form-control rounded" id="type" disabled>
+                <br/> 
+                <label for="category"><b>Event Category</b></label>
+                <input type="text" class="form-control rounded" id="category" disabled>
+                <br/> 
+              </div>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
           <i class="fa fa-user text-muted"></i> Event Attendees </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped">
+            <table class="table table-striped table-responsive">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -83,13 +133,14 @@
                     <td>2012/01/01</td>
                     <td>Member</td>
                     <td>
-                        <span class="badge badge-primary">Primary</span>
                     </td>
                     <td></td>
                   </tr>                 
                 </tbody>
               </table>
+              <div style="text-align:right">
               <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
         </div>
       </div>
     </div>

@@ -8,6 +8,9 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 
+// Auth
+import { AuthGuard } from './authentication/auth.guard';
+
 export const routes: Routes = [
   {
     path: '',
@@ -17,6 +20,7 @@ export const routes: Routes = [
   {
     path: '',
     component: FullLayoutComponent,
+    canActivate: [ AuthGuard ],
     data: {
       title: 'Home'
     },
@@ -43,6 +47,7 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  exports: [ RouterModule ],
+  providers: [ AuthGuard ]
 })
 export class AppRoutingModule {}
