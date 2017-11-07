@@ -12,6 +12,8 @@ import { MyEventComponent } from './my-event/my-event.component';
 import { SampleEventComponent } from './sample-event/sample-event.component';
 import { EventRouting } from './events.routing';
 
+import { UploadService } from './upload.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +29,9 @@ import { EventRouting } from './events.routing';
     NewEventComponent,
     MyEventComponent,
     SampleEventComponent
+  ],
+  providers: [
+    UploadService
   ]
 })
 export class EventsModule { }

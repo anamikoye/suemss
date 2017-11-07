@@ -42,9 +42,9 @@
                         <label for="end_time"><b>Ends</b></label>
                         <ngb-timepicker [spinners]="spinners" [meridian]="meridian" id="end_time" [(ngModel)]="event.end_time" name="end_time" #endTime="ngModel" required></ngb-timepicker>
                      </div>
-                     <div style="color: red; padding:1%"  *ngIf="(endTime.invalid || startTime.invalid) && (startTime.dirty || startTime.touched || endTime.dirty || endTime.touched)">
+                     <!-- <div style="color: red; padding:1%"  *ngIf="(endTime.invalid || startTime.invalid) && (startTime.dirty || startTime.touched || endTime.dirty || endTime.touched)">
                       Please enter what time your event will be held.
-                  </div>
+                  </div> -->
                      </div>
                   </div>
                   <!--/.row-->
@@ -99,7 +99,7 @@
                   <div class="form-group row">
                      <label class="col-md-3 form-control-label" for="file-input"><strong>Event Image</strong></label>
                      <div class="col-md-9">
-                        <input type="file" id="file-input" name="file-input" ngbPopover="We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB" triggers="mouseenter:mouseleave" popoverTitle="Image Specifications">
+                        <input type="file" id="file-input" name="file-input" (change)="detectFiles($event)" ngbPopover="We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB" triggers="mouseenter:mouseleave" popoverTitle="Image Specifications">
                      </div>
                   </div>
                   <div class="form-group">
