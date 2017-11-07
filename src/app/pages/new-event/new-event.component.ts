@@ -61,9 +61,11 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     // this.size$ = new BehaviorSubject(null);
     this.categories$ = af.list('/categories' ).snapshotChanges();
     this.eventsRef = af.list('/events');
+    // console.log(this.categories$);
    }
 
   ngOnInit() {
+    // console.log(this.categories$);
   }
 
   ngAfterViewChecked() {
@@ -84,7 +86,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     const form = this.eventForm.form;
     // console.log(form);
 
-    console.log(JSON.stringify(form.value));
+    console.log(JSON.stringify(form.valid));
 }
 
   createEvent(event: Event) {
@@ -97,6 +99,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     console.log('well I tried')
     this.event$ = this.eventForm.value;
     this.createEvent(this.eventForm.value);
+    this.eventForm.reset();
   }
 
 

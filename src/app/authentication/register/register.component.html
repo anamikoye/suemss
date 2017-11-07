@@ -3,47 +3,56 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card mx-4">
-          <div class="card-body p-4">
-            <h1>Register</h1>
-            <p class="text-muted">Create your account</p>
-            <div class="input-group mb-3">
-              <span class="input-group-addon"><i class="icon-user"></i></span>
-              <input type="text" class="form-control" placeholder="Username">
-            </div>
+          <form [formGroup]="userForm" (ngSubmit)="signup()">
+            <div class="card-body p-4" style="text-align: center">
+              <h1>Register</h1>
+              <p class="text-muted">Create your account</p>
+              <div class="input-group mb-3">
+                <span class="input-group-addon">@</span>
+                <input type="email" id="email" class="form-control" placeholder="Email" formControlName="email" required>
+              </div>
+              <div *ngIf="formErrors.email" style="color: red; padding:1%">
+                  {{ formErrors.email }}
+                </div>
+              <div class="input-group mb-3">
+                <span class="input-group-addon">
+                  <i class="icon-lock"></i>
+                </span>
+                <input type="password" id="password" class="form-control" placeholder="Password" formControlName="password" required>
+              </div>
+              <div *ngIf="formErrors.password" class="notification is-danger">
+                  {{ formErrors.password }}
+                </div>
+              <div class="input-group mb-4">
+                <span class="input-group-addon">
+                  <i class="icon-lock"></i>
+                </span>
+                <input type="password" class="form-control" placeholder="Repeat password">
+              </div>
 
-            <div class="input-group mb-3">
-              <span class="input-group-addon">@</span>
-              <input type="text" class="form-control" placeholder="Email">
+              <button type="submit" class="btn btn-block btn-success" [disabled]="!userForm.valid">Create Account</button>
             </div>
-
-            <div class="input-group mb-3">
-              <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Password">
-            </div>
-
-            <div class="input-group mb-4">
-              <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Repeat password">
-            </div>
-
-            <button type="button" class="btn btn-block btn-success">Create Account</button>
-          </div>
-          <div class="card-footer p-4" style="text-align:center">
-            <div class="row">
-              <!-- <div class="col-6">
+            <div class="card-footer p-4" style="text-align:center">
+              <div class="row">
+                <!-- <div class="col-6">
                 <button class="btn btn-block btn-facebook" type="button"><span>Sign up with Facebook</span></button>
               </div>
               <div class="col-6">
                 <button class="btn btn-block btn-twitter" type="button"><span>Sign up with Twitter</span></button>
               </div> -->
-              <div class="col-6">
-                  <button class="btn btn-block btn-facebook" type="button"><span>Sign up with Facebook</span></button>
+                <div class="col-6">
+                  <button class="btn btn-block btn-facebook" type="button">
+                    <span>Sign up with Facebook</span>
+                  </button>
                 </div>
                 <div class="col-6">
-                    <button class="btn btn-block btn-google-plus" type="button"><span>Sign up with Google</span></button>
-                  </div>
+                  <button class="btn btn-block btn-google-plus" type="button">
+                    <span>Sign up with Google</span>
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
