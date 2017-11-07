@@ -1,13 +1,15 @@
 import { Component, OnInit, AfterViewChecked, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { AngularFireDatabase , AngularFireAction  } from 'angularfire2/database';
-import { Event } from '../event';
+import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
+import { Event, Upload } from '../event';
+import { UploadService } from '../upload.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-new-event',
@@ -16,11 +18,13 @@ import { Event } from '../event';
 })
 export class NewEventComponent implements OnInit, AfterViewChecked {
 
-  time = {hour: 13, minute: 30};
+  time = { hour: 13, minute: 30 };
   meridian = true;
 
   @ViewChild('eventForm') currentForm: NgForm;
   eventForm: NgForm;
+  currentUpload: Upload;
+  selectedFiles: FileList;
 
 
   event: Event = {
@@ -49,20 +53,21 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
   // SampleEvent = new Event (1, 'SpellCast', 'Nairobi', '10/9/2017', '0800', ' 0900', 'tech', false, 'sdgfd', 'sdh', true, 'jsdgd', 'jsads');
 
   toggleMeridian() {
-      this.meridian = !this.meridian;
+    this.meridian = !this.meridian;
   }
 
 
-  constructor( af: AngularFireDatabase, timeConfig: NgbTimepickerConfig ) {
+  constructor(af: AngularFireDatabase, timeConfig: NgbTimepickerConfig, private upSvc: UploadService) {
 
     // this.fireCategories= af.list('/list')
     // this.fireCategories = af.list('/categories');
     timeConfig.seconds = false;
+    firebase.initializeApp(environment.firebase);
     // this.size$ = new BehaviorSubject(null);
-    this.categories$ = af.list('/categories' ).snapshotChanges();
+    this.categories$ = af.list('/categories').snapshotChanges();
     this.eventsRef = af.list('/events');
     // console.log(this.categories$);
-   }
+  }
 
   ngOnInit() {
     // console.log(this.categories$);
@@ -70,16 +75,16 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.formChanged();
-}
+  }
 
   formChanged() {
     if (this.currentForm === this.eventForm) { return; }
     this.eventForm = this.currentForm;
     if (this.eventForm) {
-        this.eventForm.valueChanges
-            .subscribe(data => this.onValueChanged(data));
+      this.eventForm.valueChanges
+        .subscribe(data => this.onValueChanged(data));
     }
-}
+  }
 
   onValueChanged(data?: any) {
     if (!this.eventForm) { return; }
@@ -87,7 +92,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     // console.log(form);
 
     console.log(JSON.stringify(form.valid));
-}
+  }
 
   createEvent(event: Event) {
     event = this.event$;
@@ -95,11 +100,24 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     // console.log('real hard');
   }
 
-  onSubmit (): void {
+  onSubmit(): void {
     console.log('well I tried')
+    this.uploadSingle();
     this.event$ = this.eventForm.value;
     this.createEvent(this.eventForm.value);
-    this.eventForm.reset();
+    // this.eventForm.reset();
+  }
+
+  // File Upload
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+    // console.log('file detected');
+  }
+
+  uploadSingle() {
+    const file = this.selectedFiles.item(0)
+    this.currentUpload = new Upload(file);
+    this.upSvc.pushUpload(this.currentUpload)
   }
 
 
