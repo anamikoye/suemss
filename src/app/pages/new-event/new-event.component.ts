@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewChecked, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, FormGroup, FormBuilder, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbTimepickerConfig, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
@@ -25,6 +25,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
   eventForm: NgForm;
   currentUpload: Upload;
   selectedFiles: FileList;
+  ticketForm: FormGroup;
 
 
   event: Event = {
@@ -56,8 +57,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     this.meridian = !this.meridian;
   }
 
-
-  constructor(af: AngularFireDatabase, timeConfig: NgbTimepickerConfig, private upSvc: UploadService) {
+  constructor(af: AngularFireDatabase, timeConfig: NgbTimepickerConfig, private upSvc: UploadService, private _fb: FormBuilder) {
 
     // this.fireCategories= af.list('/list')
     // this.fireCategories = af.list('/categories');
@@ -67,6 +67,15 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     this.categories$ = af.list('/categories').snapshotChanges();
     this.eventsRef = af.list('/events');
     // console.log(this.categories$);
+  }
+
+  createTicket() {
+    this.ticketForm = this._fb.group({
+      ticket_title: [''],
+      ticket_description: [''],
+      ticket_price: [''],
+      quantity_available: ['']
+    })
   }
 
   ngOnInit() {
