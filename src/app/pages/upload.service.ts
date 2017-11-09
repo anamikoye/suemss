@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UploadService {
 
-  basePath = 'uploads';
+  basePath = 'events';
   uploadsRef: AngularFireList<Upload>;
   uploads: Observable<Upload[]>;
 
@@ -36,7 +36,7 @@ export class UploadService {
   }
 
   // Executes the file uploading to firebase https://firebase.google.com/docs/storage/web/upload-files
-  pushUpload(upload: Upload) {
+  pushUpload(upload: Upload,pushKey) {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
 
@@ -54,7 +54,7 @@ export class UploadService {
         // upload success
         upload.url = uploadTask.snapshot.downloadURL
         upload.name = upload.file.name
-        this.saveFileData(upload)
+        this.saveFileData(upload, pushKey)
         return undefined
       }
     );
@@ -63,8 +63,8 @@ export class UploadService {
 
 
   // Writes the file details to the realtime db
-  private saveFileData(upload: Upload) {
-    this.db.list(`${this.basePath}/`).push(upload);
+  private saveFileData(upload: Upload, pushKey: any) {
+    this.db.object(`${this.basePath}/${pushKey}/upload`).set(upload);
   }
 
   // Writes the file details to the realtime db
