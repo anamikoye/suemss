@@ -97,14 +97,16 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
   createEvent(event: Event) {
     event = this.event$;
     this.eventsRef.push(event);
-    // console.log('real hard');
+    return this.eventsRef.push(event).key;
   }
 
   onSubmit(): void {
     console.log('well I tried')
-    this.uploadSingle();
     this.event$ = this.eventForm.value;
-    this.createEvent(this.eventForm.value);
+    const pushKey = this.createEvent(this.eventForm.value);
+    console.log(pushKey);
+    this.uploadSingle(pushKey);
+    
     // this.eventForm.reset();
   }
 
@@ -114,10 +116,10 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     // console.log('file detected');
   }
 
-  uploadSingle() {
+  uploadSingle(pushKey: any) {
     const file = this.selectedFiles.item(0)
     this.currentUpload = new Upload(file);
-    this.upSvc.pushUpload(this.currentUpload)
+    this.upSvc.pushUpload(this.currentUpload, pushKey)
   }
 
 
