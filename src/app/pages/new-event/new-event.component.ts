@@ -115,7 +115,6 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     const pushKey = this.createEvent(this.eventForm.value);
     console.log(pushKey);
     this.uploadSingle(pushKey);
-    
     // this.eventForm.reset();
   }
 
