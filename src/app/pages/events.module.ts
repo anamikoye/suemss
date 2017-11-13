@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { TagInputModule } from 'ngx-chips';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +23,8 @@ import { UploadService } from './upload.service';
     TagInputModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ModalModule.forRoot()
     // BrowserAnimationsModule
   ],
   declarations: [

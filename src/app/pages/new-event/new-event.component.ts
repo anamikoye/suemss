@@ -105,7 +105,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
 
   createEvent(event: Event) {
     event = this.event$;
-    this.eventsRef.push(event);
+    // this.eventsRef.push(event);
     return this.eventsRef.push(event).key;
   }
 

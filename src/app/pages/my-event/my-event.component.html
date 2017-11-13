@@ -1,3 +1,12 @@
-<p>
-  my-event works!
-</p>
+<div class="card-columns" *ngIf="events$ | async; let events; else loading">  
+  <div class="card" *ngFor="let event of events" (click)="getData(event.payload.key)">
+    <img class="card-img-top" style="height: 55%" src="{{event.payload.val().upload.url}}" alt="Event image cap">
+    <div class="card-body">
+      <h3 class="card-title" style="text-align: center">{{ event.payload.val().title }}</h3>
+      <h6 style="text-align:center" class="text-muted"><i class="fa fa-calendar-o"></i>  {{ event.payload.val().date.day }}/{{ event.payload.val().date.month }}/{{ event.payload.val().date.year }}</h6>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div>

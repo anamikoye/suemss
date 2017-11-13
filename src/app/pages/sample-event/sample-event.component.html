@@ -67,41 +67,41 @@
       <div class="card-header">
         <i class="fa fa-edit text-muted"></i> Event Details 
         <div class="card-actions">
-            <a class="btn-setting" ngbPopover="Edit Event Details" triggers="mouseenter:mouseleave"><i class="icon-pencil"></i></a>
+            <button class="btn-setting" ngbPopover="Edit Event Details" triggers="mouseenter:mouseleave" data-toggle="modal" (click)="largeModal.show()"><i class="icon-pencil"></i></button>
         </div>
       </div>
       <div class="card-body">
-          <div class="row">
+          <div class="row" *ngIf="event$ | async; let event">
               <div class="col-6">
                   <label for="title"><b>Event Title</b></label>
-                  <input type="text" class="form-control rounded" id="title" disabled>
+                  <input type="text" class="form-control rounded" id="title" [(ngModel)]="event.title" disabled>
                   <br/>   
                   <label for="date"><b>Date</b></label>
-                  <input type="text" class="form-control rounded" id="date" disabled>
+                  <input type="text" class="form-control rounded" id="date" [(ngModel)]="event.date.day" disabled>
                   <br/>
                   <label for="desc"><b>Event Description</b></label>
-                  <textarea id="description" rows="6" cols="3" class="form-control rounded" style="overflow:hidden" disabled></textarea>
+                  <textarea id="description" rows="6" cols="3" class="form-control rounded" style="overflow:hidden" [(ngModel)]="event.description" disabled></textarea>
 
               </div>
               <div class="col-6">
                   <label for="vat"><b>Location</b></label>
-                  <input type="text" class="form-control rounded" id="location" disabled>
+                  <input type="text" class="form-control rounded" id="location" [(ngModel)]="event.location" disabled>
                   <br/>
                   <div class="row">
                   <div class="col-6">
                       <label for="start_time"><b>Start Time</b></label>
-                      <input type="text" class="form-control rounded" id="start_time" disabled>
+                      <input type="text" class="form-control rounded" id="start_time" [(ngModel)]="event.start_time.hour" disabled>
                   </div>
                   <div class="col-6"><label for="end_time"><b>End Time</b></label>
-                    <input type="text" class="form-control rounded" id="end_time" disabled>
+                    <input type="text" class="form-control rounded" id="end_time" [(ngModel)]="event.end_time.hour" disabled>
                   </div>
                 </div>
                 <br>
                 <label for="type"><b>Event Type</b></label>
-                <input type="text" class="form-control rounded" id="type" disabled>
+                <input type="text" class="form-control rounded" id="type" [(ngModel)]="event.type" disabled>
                 <br/> 
                 <label for="category"><b>Event Category</b></label>
-                <input type="text" class="form-control rounded" id="category" disabled>
+                <input type="text" class="form-control rounded" id="category" [(ngModel)]="event.category" disabled>
                 <br/> 
               </div>
             </div>
@@ -147,3 +147,62 @@
     <!--/.col-->
   </div>
 </div>
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Event</h4>
+          <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form #editEventForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="row" *ngIf="event$ | async; let event">
+                <div class="col-6">
+                    <label for="title"><b>Event Title</b></label>
+                    <input type="text" class="form-control rounded"  name="title" [(ngModel)]="event.title">
+                    <br/>   
+                    <label for="date"><b>Date</b></label>
+                    <input type="text" class="form-control rounded"  name="date" [(ngModel)]="event.date.day">
+                    <br/>
+                    <label for="desc"><b>Event Description</b></label>
+                    <textarea  name="description" rows="6" cols="3" class="form-control rounded" style="overflow:h nameden" [(ngModel)]="event.description"></textarea>
+  
+                </div>
+                <div class="col-6">
+                    <label for="vat"><b>Location</b></label>
+                    <input type="text" class="form-control rounded"  name="location" [(ngModel)]="event.location">
+                    <br/>
+                    <div class="row">
+                    <div class="col-6">
+                        <label for="start_time"><b>Start Time</b></label>
+                        <input type="text" class="form-control rounded"  name="start_time" [(ngModel)]="event.start_time.hour">
+                    </div>
+                    <div class="col-6"><label for="end_time"><b>End Time</b></label>
+                      <input type="text" class="form-control rounded"  name="end_time" [(ngModel)]="event.end_time.hour">
+                    </div>
+                  </div>
+                  <br>
+                  <label for="type"><b>Event Type</b></label>
+                  <input type="text" class="form-control rounded"  name="type" [(ngModel)]="event.type">
+                  <br/> 
+                  <label for="category"><b>Event Category</b></label>
+                  <input type="text" class="form-control rounded"  name="category" [(ngModel)]="event.category">
+                  <br/> 
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+          <button type="submit" class="btn btn-primary">Update Event</button>
+        </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<pre *ngIf="event$">
+    {{ event$ | async | json }}
+</pre>

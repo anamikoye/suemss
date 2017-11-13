@@ -20,10 +20,10 @@ const routes: Routes = [
         },
     },
     {
-        path: 'sample',
+        path: 'sample/:eventId',
         component: SampleEventComponent,
         data: {
-            title: 'Planned Events  /  Event 1'
+            title: 'Planned Events'
         },
     }
 ];
