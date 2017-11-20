@@ -76,8 +76,20 @@
                   <label for="title"><b>Event Title</b></label>
                   <input type="text" class="form-control rounded" id="title" [(ngModel)]="event.title" disabled>
                   <br/>   
-                  <label for="date"><b>Date</b></label>
-                  <input type="text" class="form-control rounded" id="date" [(ngModel)]="event.date.day" disabled>
+                  <div class="row"> 
+                    <div class="col-4"> 
+                    <label for="day"><b>Day</b></label>
+                    <input type="text" class="form-control rounded"  name="day" [(ngModel)]="event.date.day" disabled>
+                  </div>
+                  <div class="col-4">
+                    <label for="month"><b>Month</b></label>
+                    <input type="text" class="form-control rounded"  name="month" [(ngModel)]="event.date.month" disabled>
+                  </div>
+                  <div class="col-4">
+                    <label for="year"><b>Year</b></label>
+                    <input type="text" class="form-control rounded"  name="year" [(ngModel)]="event.date.year" disabled>
+                  </div>
+                  </div>
                   <br/>
                   <label for="desc"><b>Event Description</b></label>
                   <textarea id="description" rows="6" cols="3" class="form-control rounded" style="overflow:hidden" [(ngModel)]="event.description" disabled></textarea>
@@ -90,10 +102,25 @@
                   <div class="row">
                   <div class="col-6">
                       <label for="start_time"><b>Start Time</b></label>
-                      <input type="text" class="form-control rounded" id="start_time" [(ngModel)]="event.start_time.hour" disabled>
+                      <!-- <input type="text" class="form-control rounded" id="start_time" [(ngModel)]="event.start_time.hour" disabled> -->
+                      <div class="row"> 
+                          <div class="col-6">
+                          <input type="text" class="form-control rounded"  name="start_time" [(ngModel)]="event.start_time.hour" disabled>
+                          </div>
+                          <div class="col-6"> 
+                              <input type="text" class="form-control rounded"  name="start_time" [(ngModel)]="event.start_time.minute" disabled>
+                              </div>
+                        </div>
                   </div>
                   <div class="col-6"><label for="end_time"><b>End Time</b></label>
-                    <input type="text" class="form-control rounded" id="end_time" [(ngModel)]="event.end_time.hour" disabled>
+                    <div class="row"> 
+                        <div class="col-6">
+                        <input type="text" class="form-control rounded"  name="end_time" [(ngModel)]="event.end_time.hour" disabled>
+                        </div>
+                        <div class="col-6"> 
+                            <input type="text" class="form-control rounded"  name="end_time" [(ngModel)]="event.end_time.minute" disabled>
+                            </div>
+                      </div>
                   </div>
                 </div>
                 <br>

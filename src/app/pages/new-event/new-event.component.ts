@@ -20,6 +20,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
 
   time = { hour: 13, minute: 30 };
   meridian = true;
+  public componentData1: any = '';
 
   @ViewChild('eventForm') currentForm: NgForm;
   eventForm: NgForm;
@@ -57,7 +58,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     this.meridian = !this.meridian;
   }
 
-  constructor(af: AngularFireDatabase, timeConfig: NgbTimepickerConfig, private upSvc: UploadService, private _fb: FormBuilder) {
+  constructor(af: AngularFireDatabase, timeConfig: NgbTimepickerConfig, private upSvc: UploadService, private _fb: FormBuilder, private router: Router) {
 
     // this.fireCategories= af.list('/list')
     // this.fireCategories = af.list('/categories');
@@ -105,6 +106,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
 
   createEvent(event: Event) {
     event = this.event$;
+    this.router.navigate(['/events/my-events']);
     // this.eventsRef.push(event);
     return this.eventsRef.push(event).key;
   }
@@ -129,6 +131,11 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     this.currentUpload = new Upload(file);
     this.upSvc.pushUpload(this.currentUpload, pushKey)
   }
+
+  autoCompleteCallback1(selectedData: any) {
+    //  do any necessery stuff.
+    this.componentData1 = JSON.stringify(selectedData);
+}
 
 
 }

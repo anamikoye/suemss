@@ -16,6 +16,7 @@
                   </div>
                   <div class="form-group">
                      <label for="vat"><b>Location</b></label>
+                     <!-- <ng4geo-autocomplete (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete> -->
                      <input type="text" class="form-control" id="location" [(ngModel)]="event.location" name="location" #location="ngModel" placeholder="Where it will be held" required>
                      <div style="color: red; padding:1%"  *ngIf="location.invalid && (location.dirty || location.touched)">
                         Please enter where your event will be held.

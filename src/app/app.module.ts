@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
@@ -56,6 +57,7 @@ import { LoginComponent } from './authentication/login/login.component';
     NgbModalModule.forRoot(),
     CalendarModule.forRoot(),
     NgxPaginationModule,
+    Ng4GeoautocompleteModule.forRoot()
   ],
   declarations: [
     AppComponent,
