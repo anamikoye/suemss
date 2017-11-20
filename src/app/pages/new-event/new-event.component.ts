@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
-import { Event, Upload } from '../event';
+import { Event, Upload, Ticket } from '../event';
 import { UploadService } from '../upload.service';
 import { environment } from '../../../environments/environment';
 
@@ -21,6 +21,8 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
   time = { hour: 13, minute: 30 };
   meridian = true;
   public componentData1: any = '';
+
+  db: any;
 
   @ViewChild('eventForm') currentForm: NgForm;
   eventForm: NgForm;
@@ -43,6 +45,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     link: '',
     link_fb: '',
     link_tw: '',
+    tickets: '',
   }
 
   // size$: BehaviorSubject<string|null>;
@@ -60,27 +63,46 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
 
   constructor(af: AngularFireDatabase, timeConfig: NgbTimepickerConfig, private upSvc: UploadService, private _fb: FormBuilder, private router: Router) {
 
-    // this.fireCategories= af.list('/list')
-    // this.fireCategories = af.list('/categories');
     timeConfig.seconds = false;
     firebase.initializeApp(environment.firebase);
-    // this.size$ = new BehaviorSubject(null);
     this.categories$ = af.list('/categories').snapshotChanges();
     this.eventsRef = af.list('/events');
-    // console.log(this.categories$);
+    this.db = af;
   }
 
-  createTicket() {
+  // createTicket() {
+  //   this.ticketForm = this._fb.group({
+  //     ticket_title: [''],
+  //     ticket_description: [''],
+  //     ticket_price: [''],
+  //     quantity_available: ['']
+  //   })
+  // }
+
+  ngOnInit() {
     this.ticketForm = this._fb.group({
-      ticket_title: [''],
-      ticket_description: [''],
-      ticket_price: [''],
-      quantity_available: ['']
+      tickets: this._fb.array([
+        this.initTicket()
+      ])
     })
   }
 
-  ngOnInit() {
-    // console.log(this.categories$);
+  initTicket() {
+    return this._fb.group({
+      ticket_title: ['', Validators.required],
+      ticket_price: [''],
+      quantity_available: ['']
+  });
+  }
+
+  addTicket() {
+    const control = <FormArray>this.ticketForm.controls['tickets'];
+    control.push(this.initTicket());
+  }
+
+  removeTicket(i: number) {
+    const control = <FormArray>this.ticketForm.controls['tickets'];
+    control.removeAt(i);
   }
 
   ngAfterViewChecked() {
@@ -101,7 +123,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     const form = this.eventForm.form;
     // console.log(form);
 
-    console.log(JSON.stringify(form.valid));
+    console.log(JSON.stringify(this.ticketForm.value));
   }
 
   createEvent(event: Event) {
@@ -117,6 +139,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     const pushKey = this.createEvent(this.eventForm.value);
     console.log(pushKey);
     this.uploadSingle(pushKey);
+    this.pushTickets(pushKey);
     // this.eventForm.reset();
   }
 
@@ -124,6 +147,12 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
   detectFiles(event) {
     this.selectedFiles = event.target.files;
     // console.log('file detected');
+  }
+
+  pushTickets(eventKey: any) {
+    // Find a way to reference the db
+    console.log('tried to push a ticket')
+    this.db.object(`events/${eventKey}/tickets`).set(this.ticketForm.value.tickets);
   }
 
   uploadSingle(pushKey: any) {

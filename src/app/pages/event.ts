@@ -14,6 +14,7 @@ export class Event {
         link_fb: string,
         link_tw: string,
         image: Upload,
+        tickets: Ticket[]
     ) { }
 }
 
@@ -35,7 +36,9 @@ export class Upload {
     }
 }
 
-// export interface Tag {
-//     value: any,
-//     display: string
-// }
+export interface Ticket {
+    ticket_title: string;
+    price: number;
+    quantity: number;
+}
+
