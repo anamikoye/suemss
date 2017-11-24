@@ -5,8 +5,8 @@
         <div class="card-header">
           <strong>Event Details</strong>
         </div>
-        <div class="card-body">
-          <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+        <div class="card-body" style="padding: 2.5%">
+          <form #eventForm="ngForm">
             <div class="form-group">
               <label for="title">
                 <b>Event Title</b>
@@ -21,14 +21,11 @@
               <label for="vat">
                 <b>Location</b>
               </label>
-              <!-- <ng4geo-autocomplete (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete> -->
-              <input type="text" class="form-control" id="location" [(ngModel)]="event.location" name="location" #location="ngModel" placeholder="Where it will be held"
-                required>
-              <div style="color: red; padding:1%" *ngIf="location.invalid && (location.dirty || location.touched)">
-                Please enter where your event will be held.
+              <div class="h-25 d-inline-block" style="width: 100%">
+                <ng4geo-autocomplete (componentCallback)="autoCompleteCallback1($event)" [userSettings]="userSettings"></ng4geo-autocomplete>
               </div>
             </div>
-            <div class="row">
+            <div class="form-group row">
               <div class="form-group col-sm-5">
                 <label for="date">
                   <b>Date</b>
@@ -60,9 +57,6 @@
                   <ngb-timepicker [spinners]="spinners" [meridian]="meridian" id="end_time" [(ngModel)]="event.end_time" name="end_time" #endTime="ngModel"
                     required></ngb-timepicker>
                 </div>
-                <!-- <div style="color: red; padding:1%"  *ngIf="(endTime.invalid || startTime.invalid) && (startTime.dirty || startTime.touched || endTime.dirty || endTime.touched)">
-                      Please enter what time your event will be held.
-                  </div> -->
               </div>
             </div>
             <!--/.row-->
@@ -95,28 +89,14 @@
               <label class="col-md-3 form-control-label" for="category">
                 <strong>Event Category</strong>
               </label>
-              <!-- <div ngbDropdown class="d-inline-block">
-                        <label class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select Category</label>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="categories$ | async; let categories; else loading">
-                           <option class="dropdown-item" *ngFor="let category of categories">{{ category.payload.val().name }}</option>
-                        </div>
-                     </div> -->
-              <!-- <div [ngSwitch]="categories$ | async"> -->
-              <!-- <div *ngSwitchCase!="null"> -->
               <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" *ngIf="categories$ | async; let categories; else loading"
                 [(ngModel)]="event.category" name="category" #category="ngModel" placeholder="Select Category">
                 <option value="" disabled selected>Select Category</option>
-                <option *ngFor="let category of categories" value="{{category.payload.val().id}}">{{ category.payload.val().name }}</option>
+                <option *ngFor="let category of categories" value="{{category.payload.key}}">{{ category.payload.val().name }}</option>
               </select>
               <div style="color: red; padding:1%" *ngIf="category && category.invalid && (category.dirty || category.touched)">
                 Please select a category.
               </div>
-              <!-- </div> -->
-              <!-- <div *ngSwitchCase="null">
-                            <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
-                            <span>Loading...</span>
-                    </div> -->
-              <!-- </div> -->
             </div>
             <div class="form-group">
               <label for="title">
@@ -155,11 +135,11 @@
                 </div>
               </div>
             </div>
-            <hr/>
+            <hr>
             <div class="card-block">
               <h5 class="card-title">EVENT TICKETS</h5>
               <br>
-              <div class="form-group">
+              <div>
                 <form [formGroup]="ticketForm" novalidate (ngSubmit)="save(ticketForm)">
                   <div formArrayName="tickets">
                     <div *ngFor="let ticket of ticketForm.controls.tickets.controls; let i=index">
@@ -198,14 +178,15 @@
                     </div>
                   </div>
                   <div>
-                    <button type="button" (click)="addTicket()" class="btn btn-link btn-lg btn-block"><i class="fa fa-magic"></i>&nbsp; Add another Ticket</button>
+                    <button type="button" (click)="addTicket()" class="btn btn-link btn-lg btn-block">
+                      <i class="fa fa-magic"></i>&nbsp; Add another Ticket</button>
                   </div>
                 </form>
               </div>
             </div>
             <hr>
             <div style="text-align:right">
-              <button type="submit" class="btn btn-success" [disabled]="!eventForm.valid">Submit</button>
+              <button type="submit" class="btn btn-success" (click)="onSubmit()" [disabled]="!eventForm.valid">Submit</button>
               <button type="reset" class="btn btn-danger">Clear</button>
             </div>
           </form>

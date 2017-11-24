@@ -21,6 +21,16 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
   time = { hour: 13, minute: 30 };
   meridian = true;
   public componentData1: any = '';
+  public userSettings: any = {
+    showRecentSearch: false,
+    showSearchButton: false,
+    // geoCountryRestriction: ['ke'],
+    geoTypes: ['establishment'],
+    geoLocation: [-1.310018, 36.812513],
+    geoRadius: 10,
+    inputPlaceholderText: 'Where your event will be held'
+    // searchIconUrl: 'http://downloadicons.net/sites/default/files/identification-search-magnifying-glass-icon-73159.png'
+  };
 
   db: any;
 
@@ -48,18 +58,10 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     tickets: '',
   }
 
-  // size$: BehaviorSubject<string|null>;
   categories$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   event$: FirebaseListObservable<Event[]>
   fireCategories: any;
   eventsRef: any;
-  // categories = ['Information Technology', 'Financial Economics', 'Commerce', 'Law'];
-
-  // SampleEvent = new Event (1, 'SpellCast', 'Nairobi', '10/9/2017', '0800', ' 0900', 'tech', false, 'sdgfd', 'sdh', true, 'jsdgd', 'jsads');
-
-  toggleMeridian() {
-    this.meridian = !this.meridian;
-  }
 
   constructor(af: AngularFireDatabase, timeConfig: NgbTimepickerConfig, private upSvc: UploadService, private _fb: FormBuilder, private router: Router) {
 
@@ -70,15 +72,6 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     this.db = af;
   }
 
-  // createTicket() {
-  //   this.ticketForm = this._fb.group({
-  //     ticket_title: [''],
-  //     ticket_description: [''],
-  //     ticket_price: [''],
-  //     quantity_available: ['']
-  //   })
-  // }
-
   ngOnInit() {
     this.ticketForm = this._fb.group({
       tickets: this._fb.array([
@@ -87,6 +80,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     })
   }
 
+  // Ticketing
   initTicket() {
     return this._fb.group({
       ticket_title: ['', Validators.required],
@@ -105,6 +99,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     control.removeAt(i);
   }
 
+  // Form Monitoring
   ngAfterViewChecked() {
     this.formChanged();
   }
@@ -122,13 +117,13 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     if (!this.eventForm) { return; }
     const form = this.eventForm.form;
     // console.log(form);
-
-    console.log(JSON.stringify(this.ticketForm.value));
   }
 
+  // Event Creation
   createEvent(event: Event) {
     event = this.event$;
-    this.router.navigate(['/events/my-events']);
+    setTimeout(() => this.router.navigate(['/events/my-events']), 2000);
+    // this.router.navigate(['/events/my-events']);
     // this.eventsRef.push(event);
     return this.eventsRef.push(event).key;
   }
@@ -153,6 +148,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     // Find a way to reference the db
     console.log('tried to push a ticket')
     this.db.object(`events/${eventKey}/tickets`).set(this.ticketForm.value.tickets);
+    this.db.object(`events/${eventKey}/location`).set(this.componentData1);
   }
 
   uploadSingle(pushKey: any) {
@@ -161,9 +157,17 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     this.upSvc.pushUpload(this.currentUpload, pushKey)
   }
 
+  getCodeHtml(data: any): any {
+    let _temp: any = JSON.stringify(data);
+    _temp = _temp.split(',').join(',<br>');
+    _temp = _temp.split('{').join('{<br>');
+    _temp = _temp.split('}').join('<br>}');
+    return _temp;
+  }
+
   autoCompleteCallback1(selectedData: any) {
     //  do any necessery stuff.
-    this.componentData1 = JSON.stringify(selectedData);
+    this.componentData1 = selectedData;
 }
 
 
