@@ -14,6 +14,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
@@ -57,7 +58,8 @@ import { LoginComponent } from './authentication/login/login.component';
     NgbModalModule.forRoot(),
     CalendarModule.forRoot(),
     NgxPaginationModule,
-    Ng4GeoautocompleteModule.forRoot()
+    Ng4GeoautocompleteModule.forRoot(),
+    NgxQRCodeModule
   ],
   declarations: [
     AppComponent,

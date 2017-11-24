@@ -7,6 +7,7 @@ import { ModalModule } from 'ngx-bootstrap';
 
 import { TagInputModule } from 'ngx-chips';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NewEventComponent } from './new-event/new-event.component';
@@ -26,7 +27,8 @@ import { UploadService } from './upload.service';
     ReactiveFormsModule,
     NgxPaginationModule,
     ModalModule.forRoot(),
-    Ng4GeoautocompleteModule.forRoot()
+    Ng4GeoautocompleteModule.forRoot(),
+    NgxQRCodeModule
     // BrowserAnimationsModule
   ],
   declarations: [

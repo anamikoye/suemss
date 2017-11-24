@@ -17,6 +17,8 @@ export class SampleEventComponent implements OnInit, AfterViewChecked {
 
   public largeModal;
   public filter = '';
+  elementType: 'url' | 'canvas' | 'img' = 'url';
+  value: any;
   event$: Observable<Event[]>;
   p = 1;
   @ViewChild('editEventForm') currentForm: NgForm;
@@ -29,6 +31,12 @@ export class SampleEventComponent implements OnInit, AfterViewChecked {
     this.route.params.subscribe(params => {
       this.event$ = this.db.object('/events/' + params['eventId']).valueChanges();
    });
+
+   const sub = this.route.params.subscribe(params => {
+    this.value = params['eventId']; });
+
+    console.log(this.value);
+
   }
 
   ngAfterViewChecked() {
