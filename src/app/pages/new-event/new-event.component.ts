@@ -27,7 +27,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     // geoCountryRestriction: ['ke'],
     geoTypes: ['establishment'],
     geoLocation: [-1.310018, 36.812513],
-    geoRadius: 10,
+    geoRadius: 5,
     inputPlaceholderText: 'Where your event will be held'
     // searchIconUrl: 'http://downloadicons.net/sites/default/files/identification-search-magnifying-glass-icon-73159.png'
   };
