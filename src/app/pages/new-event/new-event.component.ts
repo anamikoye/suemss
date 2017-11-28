@@ -51,6 +51,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     description: '',
     type: '',
     category: '',
+    faculty: '',
     tags: '',
     link: '',
     link_fb: '',
@@ -59,6 +60,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
   }
 
   categories$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  faculties: String[];
   event$: FirebaseListObservable<Event[]>
   fireCategories: any;
   eventsRef: any;
@@ -68,6 +70,7 @@ export class NewEventComponent implements OnInit, AfterViewChecked {
     timeConfig.seconds = false;
     firebase.initializeApp(environment.firebase);
     this.categories$ = af.list('/categories').snapshotChanges();
+    this.faculties = ['FIT', 'SMC', 'SLS', 'SOA', 'BTH'];
     this.eventsRef = af.list('/events');
     this.db = af;
   }

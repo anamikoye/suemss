@@ -9,6 +9,7 @@ export class Event {
         description: string,
         type: boolean,
         category: string,
+        faculty: string,
         tags: Array<Object>,
         link: boolean,
         link_fb: string,
