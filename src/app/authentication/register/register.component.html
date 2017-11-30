@@ -7,9 +7,15 @@
             <div class="card-body p-4" style="text-align: center">
               <h1>Register</h1>
               <p class="text-muted">Create your account</p>
+              <!-- <div class="input-group mb-3">
+                <span class="input-group-addon">
+                  <i class="icon-user"></i>
+                </span>
+                <input type="text" id="name" class="form-control" placeholder="Organizer Name" formControlName="name" required>
+              </div> -->
               <div class="input-group mb-3">
                 <span class="input-group-addon">@</span>
-                <input type="email" id="email" class="form-control" placeholder="Email" formControlName="email" required>
+                <input type="email" id="email" class="form-control" placeholder="Organizer Email" formControlName="email" required>
               </div>
               <div *ngIf="formErrors.email" style="color: red; padding:1%">
                   {{ formErrors.email }}

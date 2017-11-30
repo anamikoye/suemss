@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, AfterViewChecked, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import { AngularFireDatabase, AngularFireObject, AngularFireAction } from 'angularfire2/database';
 import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Observable } from 'rxjs/Observable';
-import { Event } from '../event';
+import { Event, Ticket } from '../event';
 
 import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 
@@ -19,7 +20,10 @@ export class SampleEventComponent implements OnInit, AfterViewChecked {
   public filter = '';
   elementType: 'url' | 'canvas' | 'img' = 'url';
   value: any;
+  TicketKey: any;
   event$: Observable<Event[]>;
+  tickets$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  ticketUsers$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
   p = 1;
   @ViewChild('editEventForm') currentForm: NgForm;
   editEventForm: NgForm;
@@ -30,6 +34,7 @@ export class SampleEventComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.event$ = this.db.object('/events/' + params['eventId']).valueChanges();
+      this.tickets$ = this.db.list('/events/' + params['eventId']+'/tickets').snapshotChanges();
    });
 
    const sub = this.route.params.subscribe(params => {
@@ -37,6 +42,16 @@ export class SampleEventComponent implements OnInit, AfterViewChecked {
 
     console.log(this.value);
 
+  }
+
+  getUsers(key: any) {
+    this.TicketKey = key;
+    this.ticketUsers$ = this.db.list('/events/' + this.value +'/tickets/' + key + '/TicketUsers').snapshotChanges();
+  }
+
+  deleteUser(ticketKey: any, userKey: any) {
+    const itemRef = this.db.object('/events/' + this.value +'/tickets/' + ticketKey + '/TicketUsers/'+userKey);
+    itemRef.remove();
   }
 
   ngAfterViewChecked() {
@@ -57,7 +72,7 @@ export class SampleEventComponent implements OnInit, AfterViewChecked {
     const form = this.editEventForm.form;
     // console.log(form);
 
-    console.log(JSON.stringify(form.value));
+    // console.log(JSON.stringify(form.value));
   }
 
   onSubmit () {
